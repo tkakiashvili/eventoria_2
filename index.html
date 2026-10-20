@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ka" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventoria AI — AI Event Planning Platform Georgia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: { 900: '#0F172A', 800: '#1E293B', 700: '#334155' },
+                        purple: { 600: '#7C3AED', 500: '#8B5CF6', 400: '#A78BFA' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-card { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(124, 58, 237, 0.2); }
+        .glow-purple { box-shadow: 0 0 25px -5px rgba(124, 58, 237, 0.5); }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased selection:bg-purple-600 selection:text-white">
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 w-full z-50 glass border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center glow-purple">
+                    <i class="fa-solid fa-wand-magic-sparkles text-white text-lg"></i>
+                </div>
+                <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-purple-400 bg-clip-text text-transparent">Eventoria AI</span>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-8 font-medium text-slate-300">
+                <a href="#wizard" class="hover:text-purple-400 transition-colors">AI დაგეგმვა</a>
+                <a href="#marketplace" class="hover:text-purple-400 transition-colors">ვენდორები</a>
+                <a href="#how-it-works" class="hover:text-purple-400 transition-colors">როგორ მუშაობს</a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <select id="currency-select" onchange="changeCurrency(this.value)" class="bg-slate-800 text-slate-200 text-sm rounded-lg px-3 py-2 border border-slate-700 outline-none focus:border-purple-500">
+                    <option value="GEL">GEL (₾)</option>
+                    <option value="USD">USD ($)</option>
+                    <option value="EUR">EUR (€)</option>
+                </select>
+                <a href="#wizard" class="bg-purple-600 hover:bg-purple-500 text-white font-semibold px-5 py-2.5 rounded-xl transition-all glow-purple flex items-center space-x-2">
+                    <span>დაგეგმე ღონისძიება</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO / WIZARD SECTION -->
+    <section id="wizard" class="pt-32 pb-20 px-4 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <span class="px-4 py-1.5 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20 inline-block mb-4">✨ №1 AI ღონისძიებების პლატფორმა საქართველოში</span>
+            <h1 class="text-4xl sm:text-6xl font-black tracking-tight mb-6 leading-tight">
+                დაგეგმე ღონისძიება <span class="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">წუთებში AI-სთან ერთად</span>
+            </h1>
+            <p class="text-slate-400 text-lg sm:text-xl">
+                ქორწილები, დაბადების დღეები და კორპორატიულები — დაითვალე ბიუჯეტი, აირჩიე საუკეთესო ვენდორები და დაჯავშნე ყველაფერი ერთ სივრცეში.
+            </p>
+        </div>
+
+        <!-- WIZARD CARD -->
+        <div class="glass-card rounded-3xl p-6 sm:p-8 max-w-4xl mx-auto glow-purple">
+            <div class="flex flex-wrap gap-3 mb-8 justify-center" id="event-types">
+                <button onclick="selectEventType('wedding')" class="event-type-btn active bg-purple-600 text-white px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2 transition-all">
+                    <span>💍 ქორწილი</span>
+                </button>
+                <button onclick="selectEventType('birthday')" class="event-type-btn bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2 transition-all">
+                    <span>🎂 დაბადების დღე</span>
+                </button>
+                <button onclick="selectEventType('corporate')" class="event-type-btn bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2 transition-all">
+                    <span>🏢 კორპორატიული</span>
+                </button>
+                <button onclick="selectEventType('party')" class="event-type-btn bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2 transition-all">
+                    <span>🎉 წვეულება</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-2">სტუმრების რაოდენობა: <span id="guest-count-val" class="text-purple-400 font-bold">100</span></label>
+                    <input type="range" min="10" max="500" value="100" id="guest-slider" oninput="updateGuestCount(this.value)" class="w-full accent-purple-600 h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-2">ლოკაცია / ქალაქი</label>
+                    <select id="location-select" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-slate-200 outline-none focus:border-purple-500">
+                        <option value="თბილისი">თბილისი</option>
+                        <option value="კახეთი">კახეთი</option>
+                        <option value="ბათუმი">ბათუმი</option>
+                        <option value="მცხეთა">მცხეთა</option>
+                        <option value="ყაზბეგი">ყაზბეგი</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-2">სავარაუდო ბიუჯეტი (<span class="curr-symbol">₾</span>)</label>
+                    <input type="number" id="budget-input" value="15000" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-slate-200 outline-none focus:border-purple-500 font-semibold">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-2">სტილი / ვიზუალი</label>
+                    <select id="vibe-select" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-slate-200 outline-none focus:border-purple-500">
+                        <option value="Luxury">Luxury (ლუქს / ელეგანტური)</option>
+                        <option value="Boho">Boho & Rustic (ბუნებრივი / ბოჰო)</option>
+                        <option value="Modern">Modern Minimal (თანამედროვე)</option>
+                        <option value="Nightlife">Neon / Party Nightlife</option>
+                    </select>
+                </div>
+            </div>
+
+            <button onclick="generatePlan()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-4 rounded-2xl transition-all shadow-lg glow-purple flex items-center justify-center space-x-2 text-lg">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>✨ გენერირება AI გეგმის & ბიუჯეტის</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- RESULTS SECTION -->
+    <section id="results" class="hidden py-12 px-4 max-w-7xl mx-auto">
+        <div class="glass rounded-3xl p-6 sm:p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 flex items-center space-x-3">
+                <i class="fa-solid fa-chart-pie text-purple-400"></i>
+                <span>AI ბიუჯეტის გადანაწილება</span>
+            </h2>
+
+            <div class="h-6 w-full bg-slate-800 rounded-full overflow-hidden flex mb-6">
+                <div id="bar-venue" class="bg-purple-600 h-full transition-all" style="width: 40%" title="ლოკაცია"></div>
+                <div id="bar-catering" class="bg-indigo-500 h-full transition-all" style="width: 25%" title="ქეთერინგი"></div>
+                <div id="bar-photo" class="bg-pink-500 h-full transition-all" style="width: 15%" title="ფოტო/ვიდეო"></div>
+                <div id="bar-decor" class="bg-emerald-500 h-full transition-all" style="width: 10%" title="დეკორი"></div>
+                <div id="bar-music" class="bg-amber-500 h-full transition-all" style="width: 10%" title="მუსიკა"></div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 text-center">
+                <div class="p-3 bg-slate-800/50 rounded-xl border border-slate-700/50">
+                    <span class="text-xs text-slate-400 block">ლოკაცია (40%)</span>
+                    <span id="cost-venue" class="font-bold text-purple-400">6,000 ₾</span>
+                </div>
+                <div class="p-3 bg-slate-800/50 rounded-xl border border-slate-700/50">
+                    <span class="text-xs text-slate-400 block">ქეთერინგი (25%)</span>
+                    <span id="cost-catering" class="font-bold text-indigo-400">3,750 ₾</span>
+                </div>
+                <div class="p-3 bg-slate-800/50 rounded-xl border border-slate-700/50">
+                    <span class="text-xs text-slate-400 block">ფოტო/ვიდეო (15%)</span>
+                    <span id="cost-photo" class="font-bold text-pink-400">2,250 ₾</span>
+                </div>
+                <div class="p-3 bg-slate-800/50 rounded-xl border border-slate-700/50">
+                    <span class="text-xs text-slate-400 block">დეკორი (10%)</span>
+                    <span id="cost-decor" class="font-bold text-emerald-400">1,500 ₾</span>
+                </div>
+                <div class="p-3 bg-slate-800/50 rounded-xl border border-slate-700/50">
+                    <span class="text-xs text-slate-400 block">DJ/მუსიკა (10%)</span>
+                    <span id="cost-music" class="font-bold text-amber-400">1,500 ₾</span>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-2xl font-bold mb-6">რეკომენდებული პაკეტი & ვენდორები</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12" id="vendor-cards">
+            <!-- Dynamic Cards generated by JS -->
+        </div>
+    </section>
+
+    <!-- MARKETPLACE SECTION -->
+    <section id="marketplace" class="py-12 px-4 max-w-7xl mx-auto border-t border-slate-800">
+        <h2 class="text-3xl font-black mb-8">ვენდორების მარკეტფლეისი</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div class="glass-card p-5 rounded-2xl">
+                <div class="h-40 bg-slate-800 rounded-xl mb-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=600&q=80')"></div>
+                <h3 class="font-bold text-lg mb-1">Château Hall Kakheti</h3>
+                <p class="text-slate-400 text-sm mb-3">პრემიუმ ლოკაცია ყვარელში</p>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-purple-400 font-bold">6,000 ₾-დან</span>
+                    <span class="text-amber-400"><i class="fa-solid fa-star"></i> 4.9</span>
+                </div>
+            </div>
+            <div class="glass-card p-5 rounded-2xl">
+                <div class="h-40 bg-slate-800 rounded-xl mb-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=600&q=80')"></div>
+                <h3 class="font-bold text-lg mb-1">Gourmet Banquet</h3>
+                <p class="text-slate-400 text-sm mb-3">უმაღლესი ხარისხის ქეთერინგი</p>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-purple-400 font-bold">38 ₾ / სტუმარი</span>
+                    <span class="text-amber-400"><i class="fa-solid fa-star"></i> 4.8</span>
+                </div>
+            </div>
+            <div class="glass-card p-5 rounded-2xl">
+                <div class="h-40 bg-slate-800 rounded-xl mb-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=600&q=80')"></div>
+                <h3 class="font-bold text-lg mb-1">Frame Studio Georgia</h3>
+                <p class="text-slate-400 text-sm mb-3">ფოტო/ვიდეო & დრონით გადაღება</p>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-purple-400 font-bold">2,250 ₾-დან</span>
+                    <span class="text-amber-400"><i class="fa-solid fa-star"></i> 5.0</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 py-8 text-center text-slate-500 text-sm">
+        <p>© 2026 Eventoria AI Georgia. ყველა უფლება დაცულია.</p>
+    </footer>
+
+    <!-- JS LOGIC -->
+    <script>
+        let selectedType = 'wedding';
+        let currency = 'GEL';
+        let currSymbol = '₾';
+        let rate = 1;
+
+        function updateGuestCount(val) {
+            document.getElementById('guest-count-val').innerText = val;
+        }
+
+        function selectEventType(type) {
+            selectedType = type;
+            document.querySelectorAll('.event-type-btn').forEach(btn => {
+                btn.classList.remove('bg-purple-600', 'text-white');
+                btn.classList.add('bg-slate-800', 'text-slate-300');
+            });
+            event.currentTarget.classList.remove('bg-slate-800', 'text-slate-300');
+            event.currentTarget.classList.add('bg-purple-600', 'text-white');
+        }
+
+        function changeCurrency(val) {
+            currency = val;
+            if (val === 'GEL') { currSymbol = '₾'; rate = 1; }
+            else if (val === 'USD') { currSymbol = '$'; rate = 0.37; }
+            else if (val === 'EUR') { currSymbol = '€'; rate = 0.34; }
+            
+            document.querySelectorAll('.curr-symbol').forEach(el => el.innerText = currSymbol);
+            generatePlan();
+        }
+
+        function generatePlan() {
+            const budget = parseFloat(document.getElementById('budget-input').value) * rate;
+            const guests = document.getElementById('guest-slider').value;
+            const location = document.getElementById('location-select').value;
+
+            const vCost = budget * 0.40;
+            const cCost = budget * 0.25;
+            const pCost = budget * 0.15;
+            const dCost = budget * 0.10;
+            const mCost = budget * 0.10;
+
+            document.getElementById('cost-venue').innerText = `${Math.round(vCost).toLocaleString()} ${currSymbol}`;
+            document.getElementById('cost-catering').innerText = `${Math.round(cCost).toLocaleString()} ${currSymbol}`;
+            document.getElementById('cost-photo').innerText = `${Math.round(pCost).toLocaleString()} ${currSymbol}`;
+            document.getElementById('cost-decor').innerText = `${Math.round(dCost).toLocaleString()} ${currSymbol}`;
+            document.getElementById('cost-music').innerText = `${Math.round(mCost).toLocaleString()} ${currSymbol}`;
+
+            const cardsHTML = `
+                <div class="glass-card p-6 rounded-2xl flex justify-between items-center">
+                    <div>
+                        <span class="text-xs text-purple-400 font-bold uppercase">ლოკაცია</span>
+                        <h4 class="font-bold text-xl text-white">Château Hall (${location})</h4>
+                        <p class="text-slate-400 text-sm">სივრცე, განათება და მომსახურება</p>
+                    </div>
+                    <span class="font-black text-xl text-purple-400">${Math.round(vCost).toLocaleString()} ${currSymbol}</span>
+                </div>
+                <div class="glass-card p-6 rounded-2xl flex justify-between items-center">
+                    <div>
+                        <span class="text-xs text-indigo-400 font-bold uppercase">ქეთერინგი</span>
+                        <h4 class="font-bold text-xl text-white">Gourmet Banquet Service</h4>
+                        <p class="text-slate-400 text-sm">${guests} სტუმარი x ${Math.round(cCost/guests)} ${currSymbol}</p>
+                    </div>
+                    <span class="font-black text-xl text-indigo-400">${Math.round(cCost).toLocaleString()} ${currSymbol}</span>
+                </div>
+                <div class="glass-card p-6 rounded-2xl flex justify-between items-center">
+                    <div>
+                        <span class="text-xs text-pink-400 font-bold uppercase">ფოტო & ვიდეო</span>
+                        <h4 class="font-bold text-xl text-white">Frame Studio Georgia</h4>
+                        <p class="text-slate-400 text-sm">სრული დღე + დრონით გადაღება</p>
+                    </div>
+                    <span class="font-black text-xl text-pink-400">${Math.round(pCost).toLocaleString()} ${currSymbol}</span>
+                </div>
+                <div class="glass-card p-6 rounded-2xl flex justify-between items-center">
+                    <div>
+                        <span class="text-xs text-emerald-400 font-bold uppercase">დეკორი & დიზაინი</span>
+                        <h4 class="font-bold text-xl text-white">Flora & Lights Studio</h4>
+                        <p class="text-slate-400 text-sm">სცენის და მაგიდების გაფორმება</p>
+                    </div>
+                    <span class="font-black text-xl text-emerald-400">${Math.round(dCost).toLocaleString()} ${currSymbol}</span>
+                </div>
+            `;
+
+            document.getElementById('vendor-cards').innerHTML = cardsHTML;
+            document.getElementById('results').classList.remove('hidden');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
